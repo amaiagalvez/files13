@@ -140,6 +140,132 @@
             </flux:table>
         </section>
 
+        <section aria-labelledby="file-documents-heading" x-data="{ removing: null }">
+            <div class="flex items-center justify-between gap-3">
+                <flux:heading id="file-documents-heading" level="2" size="lg">{{ __('Documents') }}</flux:heading>
+                @if ($writable)
+                    <flux:modal.trigger name="file-document-add">
+                        <flux:button size="sm" icon="plus" data-test="file-document-add">{{ __('Add document') }}</flux:button>
+                    </flux:modal.trigger>
+                @endif
+            </div>
+
+            @php
+                $byFolder = $file->documents->groupBy(fn ($document) => $folders[$document->getRelation('pivot')->getAttribute('folder_id')] ?? '');
+            @endphp
+
+            <div class="mt-3 flex flex-col gap-4" data-test="file-documents">
+                @forelse ($byFolder->sortKeys() as $folder => $documents)
+                    <div>
+                        <flux:heading level="3" size="sm">{{ $folder !== '' ? $folder : __('Without folder') }}</flux:heading>
+                        <ul class="mt-2 flex flex-col gap-2">
+                            @foreach ($documents as $document)
+                                <li class="flex flex-wrap items-center gap-3" data-test="file-document-{{ $document->id }}">
+                                    <span class="font-medium">{{ $document->name }}</span>
+                                    @if ($document->editing)
+                                        <flux:badge size="sm" color="amber">{{ __('Open in the editor') }}</flux:badge>
+                                    @endif
+                                    @if (\Illuminate\Support\Facades\Route::has('documents.editor'))
+                                    <a class="text-sm hover:underline" href="{{ route('documents.editor', $document) }}" data-test="file-document-open-{{ $document->id }}">
+                                        {{ $writable ? __('Edit in the editor') : __('Open') }}
+                                    </a>
+                                    @endif
+                                    @if ($writable)
+                                        <form method="POST" action="{{ route('files.documents.update', [$file, $document]) }}" class="flex items-center gap-2">
+                                            @csrf
+                                            @method('PATCH')
+                                            <flux:input size="sm" name="folder" list="file-folders" :value="$folder" :placeholder="__('Folder')"
+                                                :aria-label="__('Folder')" maxlength="{{ \Basics13\Support\Validation\MaxLength::string() }}"
+                                                data-test="file-document-folder-{{ $document->id }}" />
+                                            <flux:button size="sm" type="submit" variant="ghost">{{ __('Move') }}</flux:button>
+                                        </form>
+                                        <flux:modal.trigger name="file-document-remove">
+                                            <flux:button size="sm" variant="ghost" icon="trash" :aria-label="__('Remove document')"
+                                                x-on:click="removing = @js(['action' => route('files.documents.destroy', [$file, $document]), 'name' => $document->name])"
+                                                data-test="file-document-remove-{{ $document->id }}" />
+                                        </flux:modal.trigger>
+                                    @endif
+                                    <details class="w-full text-sm">
+                                        <summary class="cursor-pointer text-zinc-500 dark:text-zinc-400">{{ __('Tracking') }}</summary>
+                                        <ul class="mt-1" data-test="file-document-tracks-{{ $document->id }}">
+                                            @foreach ($document->tracks as $track)
+                                                <li>{{ $track->created_at?->toDateTimeString() }} · {{ __('track.'.$track->action) }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </details>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @empty
+                    <flux:text>{{ __('The file has no documents.') }}</flux:text>
+                @endforelse
+            </div>
+
+            @if ($writable)
+                <datalist id="file-folders">
+                    @foreach ($folders as $name)
+                        <option value="{{ $name }}"></option>
+                    @endforeach
+                </datalist>
+
+                <flux:modal name="file-document-add" class="max-w-lg">
+                    <form method="POST" action="{{ route('files.documents.store', $file) }}" enctype="multipart/form-data"
+                        class="flex flex-col gap-4" data-test="file-document-form">
+                        @csrf
+                        <flux:heading size="lg">{{ __('Add document') }}</flux:heading>
+                        <flux:field>
+                            <flux:label>{{ __('Template') }}</flux:label>
+                            <flux:select name="template_id" data-test="file-document-template">
+                                <option value="">{{ __('No template') }}</option>
+                                @foreach ($templates as $template)
+                                    <option value="{{ $template['id'] }}" @disabled($template['editing'])>
+                                        {{ $template['text'] }}{{ $template['editing'] ? ' ('.__('Open in the editor').')' : '' }}
+                                    </option>
+                                @endforeach
+                            </flux:select>
+                            <flux:error name="template_id" />
+                        </flux:field>
+                        <flux:field>
+                            <flux:label>{{ __('Name') }}</flux:label>
+                            <flux:input name="name" maxlength="{{ \Basics13\Support\Validation\MaxLength::string() }}" data-test="file-document-name" />
+                            <flux:description>{{ __('Leave it empty to keep the name of the template.') }}</flux:description>
+                            <flux:error name="name" />
+                        </flux:field>
+                        <flux:field>
+                            <flux:label>{{ __('Content') }}</flux:label>
+                            <input type="file" name="content" data-test="file-document-content"
+                                accept="{{ collect(\Files13\Models\Document::EXTENSIONS)->map(fn (string $extension): string => '.'.$extension)->join(',') }}" />
+                            <flux:error name="content" />
+                        </flux:field>
+                        <flux:field>
+                            <flux:label>{{ __('Folder') }}</flux:label>
+                            <flux:input name="folder" list="file-folders" maxlength="{{ \Basics13\Support\Validation\MaxLength::string() }}" data-test="file-document-new-folder" />
+                            <flux:error name="folder" />
+                        </flux:field>
+                        <div class="flex justify-end gap-2">
+                            <flux:modal.close><flux:button variant="ghost">{{ __('Cancel') }}</flux:button></flux:modal.close>
+                            <flux:button type="submit" variant="primary" data-test="file-document-submit">{{ __('Add document') }}</flux:button>
+                        </div>
+                    </form>
+                </flux:modal>
+
+                <flux:modal name="file-document-remove" class="max-w-md">
+                    <form method="POST" x-bind:action="removing?.action" class="flex flex-col gap-4" data-test="file-document-remove-form">
+                        @csrf
+                        @method('DELETE')
+                        <flux:heading size="lg">{{ __('Remove document') }}</flux:heading>
+                        <flux:text x-text="removing?.name"></flux:text>
+                        <flux:text>{{ __('basics13::messages.you_can_restore_from_trash') }}</flux:text>
+                        <div class="flex justify-end gap-2">
+                            <flux:modal.close><flux:button variant="ghost">{{ __('Cancel') }}</flux:button></flux:modal.close>
+                            <flux:button type="submit" variant="danger" data-test="file-document-remove-confirm">{{ __('Remove document') }}</flux:button>
+                        </div>
+                    </form>
+                </flux:modal>
+            @endif
+        </section>
+
         <section aria-labelledby="file-changes-heading">
             <flux:heading id="file-changes-heading" level="2" size="lg">{{ __('Change log') }}</flux:heading>
             <ul class="mt-3 flex flex-col gap-2 text-sm" data-test="file-changes">

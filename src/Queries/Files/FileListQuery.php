@@ -100,7 +100,7 @@ final class FileListQuery extends ListQueryBase
     {
         return $file->load([
             'type', 'status', 'subject', 'ending', 'location', 'district',
-            'users', 'applicants.applicant', 'filePhases.phase', 'changes',
+            'users', 'applicants.applicant', 'filePhases.phase', 'changes', 'documents.tracks',
         ]);
     }
 

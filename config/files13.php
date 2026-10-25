@@ -16,6 +16,9 @@ return [
 
     'disk' => env('FILES13_DISK', 'local'),
 
+    // The largest document that may be uploaded, in kilobytes.
+    'max_upload_kb' => (int) env('FILES13_MAX_UPLOAD_KB', 20480),
+
     /*
     |--------------------------------------------------------------------------
     | OnlyOffice document server

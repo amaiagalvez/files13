@@ -12,7 +12,7 @@ use Illuminate\Database\Seeder;
 class FilesAccessSeeder extends Seeder
 {
     /** @var list<string> */
-    public const MODULES = ['file_subjects', 'file_types', 'file_statuses', 'file_endings', 'file_locations', 'file_phases', 'files'];
+    public const MODULES = ['file_subjects', 'file_types', 'file_statuses', 'file_endings', 'file_locations', 'file_phases', 'files', 'file_documents'];
 
     /**
      * The permissions over the files a user created or is assigned to, beside the module actions.
@@ -34,6 +34,7 @@ class FilesAccessSeeder extends Seeder
         ['key' => 'file-statuses', 'parent' => 'files13', 'label' => 'Statuses', 'sort' => 130, 'icon' => 'signal', 'route' => 'file-statuses.index', 'active' => 'file-statuses.*', 'permissions' => ['file_statuses.view']],
         ['key' => 'file-endings', 'parent' => 'files13', 'label' => 'Endings', 'sort' => 140, 'icon' => 'flag', 'route' => 'file-endings.index', 'active' => 'file-endings.*', 'permissions' => ['file_endings.view']],
         ['key' => 'file-locations', 'parent' => 'files13', 'label' => 'Locations', 'sort' => 150, 'icon' => 'calendar-days', 'route' => 'file-locations.index', 'active' => 'file-locations.*', 'permissions' => ['file_locations.view']],
+        ['key' => 'documents', 'parent' => 'files13', 'label' => 'Document templates', 'sort' => 90, 'icon' => 'document-duplicate', 'route' => 'documents.index', 'active' => 'documents.*', 'permissions' => ['file_documents.view']],
         ['key' => 'phases', 'parent' => 'files13', 'label' => 'Phases', 'sort' => 100, 'icon' => 'queue-list', 'route' => 'phases.index', 'active' => 'phases.*', 'permissions' => ['file_phases.view']],
     ];
 

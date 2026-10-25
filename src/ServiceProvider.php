@@ -3,7 +3,9 @@
 namespace Files13;
 
 use Files13\Models\File;
+use Files13\Models\Document;
 use Files13\Models\FilePhase;
+use Files13\Models\DocumentTrack;
 use Files13\Observers\FileObserver;
 use Files13\Observers\FilePhaseObserver;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
@@ -34,6 +36,40 @@ class ServiceProvider extends BaseServiceProvider
 
         File::observe(FileObserver::class);
         FilePhase::observe(FilePhaseObserver::class);
+
+        $this->guardDocuments();
+    }
+
+    /**
+     * What deleting a document means, wherever the delete comes from:
+     *
+     * - a document open in the editor is not deleted;
+     * - a template copies were made from is not deleted for good;
+     * - deleting for good removes the stored content; the tracks stay, with the name;
+     * - deleting a file for good first deletes its documents for good.
+     */
+    private function guardDocuments(): void
+    {
+        Document::deleting(static fn (Document $document): bool => $document->isForceDeleting() || ! $document->editing);
+
+        Document::forceDeleting(static fn (Document $document): bool => ! $document->copies()->withTrashed()->exists());
+
+        Document::deleted(static function (Document $document): void {
+            if (! $document->isForceDeleting()) {
+                DocumentTrack::record($document, 'delete');
+            }
+        });
+
+        Document::forceDeleted(static function (Document $document): void {
+            $document->deleteContent();
+            DocumentTrack::record($document, 'destroy');
+        });
+
+        File::forceDeleting(static function (File $file): void {
+            $file->documents()->withTrashed()->get()->each(static function (Document $document): void {
+                $document->forceDelete();
+            });
+        });
     }
 
     public function register(): void

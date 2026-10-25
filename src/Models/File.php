@@ -55,6 +55,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read Collection<int, FilePhase> $filePhases
  * @property-read Collection<int, FileApplicant> $applicants
  * @property-read Collection<int, FileChange> $changes
+ * @property-read Collection<int, Document> $documents
  */
 #[Fillable(['name', 'number', 'impugn', 'start_date', 'end_date', 'type_id', 'status_id', 'subject_id', 'ending_id', 'location_id', 'district_id', 'notes'])]
 #[UsePolicy(FilePolicy::class)]
@@ -191,6 +192,18 @@ class File extends Model
     public function applicants(): HasMany
     {
         return $this->hasMany(FileApplicant::class, 'file_id');
+    }
+
+    /**
+     * The documents of the file, with the folder each one is placed in.
+     *
+     * @return BelongsToMany<Document, $this>
+     */
+    public function documents(): BelongsToMany
+    {
+        return $this->belongsToMany(Document::class, 'FIL_file_document', 'file_id', 'document_id')
+            ->withPivot('folder_id')
+            ->withTimestamps();
     }
 
     /**

@@ -5,6 +5,7 @@ namespace Files13\Http\Controllers;
 use Files13\Models\File;
 use Files13\Models\Phase;
 use Illuminate\View\View;
+use Files13\Models\Folder;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
@@ -16,6 +17,7 @@ use Files13\Http\Requests\FileListRequest;
 use Files13\Http\Requests\FileShowRequest;
 use Files13\Transformers\FileListTransformer;
 use Files13\Queries\Files\FileFormOptionsQuery;
+use Files13\Queries\Documents\DocumentListQuery;
 use Basics13\Support\Database\UniqueConstraintViolation;
 
 class FileController extends Controller
@@ -45,14 +47,21 @@ class FileController extends Controller
      * The file sheet: its data, phases, users, applicants, documents and change log. A user who may
      * view the file but not change it sees it read-only.
      */
-    public function show(FileShowRequest $request, File $file, FileListQuery $query, FileFormOptionsQuery $options): View
-    {
+    public function show(
+        FileShowRequest $request,
+        File $file,
+        FileListQuery $query,
+        FileFormOptionsQuery $options,
+        DocumentListQuery $documents,
+    ): View {
         $writable = $request->user()?->can('update', $file) ?? false;
 
         return view('files13::files.show', [
             'file' => $query->sheet($file),
+            'folders' => Folder::query()->orderBy('name')->pluck('name', 'id')->all(),
             'writable' => $writable,
             'options' => $writable ? $options->options() : [],
+            'templates' => $writable ? $documents->copyable() : [],
         ]);
     }
 
