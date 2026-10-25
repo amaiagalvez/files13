@@ -25,10 +25,10 @@ class FilesAccessSeeder extends Seeder
      * @var list<array{key: string, label: string, sort: int, parent?: string, icon?: string, route?: string, active?: string, except?: string, permissions?: list<string>}>
      */
     private const MENUS = [
-        ['key' => 'files13', 'label' => 'Files', 'sort' => 200],
+        ['key' => 'files13', 'label' => 'Case files', 'sort' => 200],
         ['key' => 'files-home', 'parent' => 'files13', 'label' => 'Home', 'sort' => 5, 'icon' => 'home', 'route' => 'files-home', 'active' => 'files-home', 'permissions' => ['files.view', 'files.view_own', 'files.manage_own']],
         ['key' => 'files-calendar', 'parent' => 'files13', 'label' => 'Calendar', 'sort' => 40, 'icon' => 'calendar-days', 'route' => 'files-calendar', 'active' => 'files-calendar', 'permissions' => ['files.view', 'files.view_own', 'files.manage_own']],
-        ['key' => 'files', 'parent' => 'files13', 'label' => 'Files', 'sort' => 10, 'icon' => 'folder-open', 'route' => 'files.index', 'active' => 'files.*', 'except' => 'files.mine', 'permissions' => ['files.view', 'files.view_own', 'files.manage_own']],
+        ['key' => 'files', 'parent' => 'files13', 'label' => 'Case files', 'sort' => 10, 'icon' => 'folder-open', 'route' => 'files.index', 'active' => 'files.*', 'except' => 'files.mine', 'permissions' => ['files.view', 'files.view_own', 'files.manage_own']],
         ['key' => 'file-phases', 'parent' => 'files13', 'label' => 'Phases of the files', 'sort' => 30, 'icon' => 'clock', 'route' => 'file-phases.index', 'active' => 'file-phases.*', 'permissions' => ['files.view', 'files.view_own', 'files.manage_own']],
         ['key' => 'files-mine', 'parent' => 'files13', 'label' => 'My files', 'sort' => 20, 'icon' => 'user', 'route' => 'files.mine', 'active' => 'files.mine', 'permissions' => ['files.view', 'files.view_own', 'files.manage_own']],
         ['key' => 'file-subjects', 'parent' => 'files13', 'label' => 'Subjects', 'sort' => 110, 'icon' => 'tag', 'route' => 'file-subjects.index', 'active' => 'file-subjects.*', 'permissions' => ['file_subjects.view']],

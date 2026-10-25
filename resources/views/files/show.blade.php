@@ -14,10 +14,10 @@
         __('Status') => $file->status?->name_eu,
         __('Subject') => $file->subject?->name_eu,
         __('Ending') => $file->ending?->name_eu,
-        __('Location') => $file->location?->name_eu,
+        __('Location calendar') => $file->location?->name_eu,
         __('District') => $file->district?->name,
-        __('Start') => $file->start_date?->toDateString(),
-        __('End') => $file->end_date?->toDateString(),
+        __('Start date') => $file->start_date?->toDateString(),
+        __('End date') => $file->end_date?->toDateString(),
         __('Impugned') => $file->impugn ? __('Yes') : __('No'),
     ];
 @endphp
@@ -32,7 +32,7 @@
                 @endunless
             </div>
             <flux:button variant="ghost" icon="arrow-left" :href="route('files.index')" data-test="file-back">
-                {{ __('Files') }}
+                {{ __('Case files') }}
             </flux:button>
         </div>
 
@@ -89,9 +89,9 @@
                                     <option x-bind:value="option.id" x-text="option.text" x-bind:selected="String(option.id) === String(row.user_id)"></option>
                                 </template>
                             </flux:select>
-                            <flux:input type="date" x-model="row.start_date" x-bind:name="`phases[${index}][start_date]`" :label="__('Start')"
+                            <flux:input type="date" x-model="row.start_date" x-bind:name="`phases[${index}][start_date]`" :label="__('Start date')"
                                 x-bind:data-test="`file-phase-start-${index}`" />
-                            <flux:input type="date" x-model="row.end_date" x-bind:name="`phases[${index}][end_date]`" :label="__('End')"
+                            <flux:input type="date" x-model="row.end_date" x-bind:name="`phases[${index}][end_date]`" :label="__('End date')"
                                 x-bind:data-test="`file-phase-end-${index}`" />
                             <flux:input x-model="row.notes" x-bind:name="`phases[${index}][notes]`" :label="__('Notes')"
                                 maxlength="{{ \Basics13\Support\Validation\MaxLength::longText() }}" x-bind:data-test="`file-phase-notes-${index}`" />
@@ -117,8 +117,8 @@
             <flux:table class="mt-3" data-test="file-phases">
                 <flux:table.columns>
                     <flux:table.column>{{ __('Phase') }}</flux:table.column>
-                    <flux:table.column>{{ __('Start') }}</flux:table.column>
-                    <flux:table.column>{{ __('End') }}</flux:table.column>
+                    <flux:table.column>{{ __('Start date') }}</flux:table.column>
+                    <flux:table.column>{{ __('End date') }}</flux:table.column>
                     <flux:table.column>{{ __('Alert date') }}</flux:table.column>
                     <flux:table.column>{{ __('Pending days') }}</flux:table.column>
                 </flux:table.columns>
@@ -179,7 +179,7 @@
                                         </form>
                                         <flux:modal.trigger name="file-document-remove">
                                             <flux:button size="sm" variant="ghost" icon="trash" :aria-label="__('Remove document')"
-                                                x-on:click="removing = @js(['action' => route('files.documents.destroy', [$file, $document]), 'name' => $document->name])"
+                                                x-on:click="removing = {{ \Illuminate\Support\Js::from(['action' => route('files.documents.destroy', [$file, $document]), 'name' => $document->name]) }}"
                                                 data-test="file-document-remove-{{ $document->id }}" />
                                         </flux:modal.trigger>
                                     @endif

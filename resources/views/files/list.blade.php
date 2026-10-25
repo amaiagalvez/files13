@@ -102,7 +102,7 @@
                         <flux:table.column scope="col">{{ __('Number') }}</flux:table.column>
                         <flux:table.column scope="col">{{ __('Type') }}</flux:table.column>
                         <flux:table.column scope="col">{{ __('Status') }}</flux:table.column>
-                        <flux:table.column scope="col">{{ __('Start') }}</flux:table.column>
+                        <flux:table.column scope="col">{{ __('Start date') }}</flux:table.column>
                         <flux:table.column scope="col" align="end" sticky class="text-end">
                             <span class="sr-only">{{ __('Actions') }}</span>
                         </flux:table.column>

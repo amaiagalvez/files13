@@ -18,11 +18,11 @@
 
         <flux:table :paginate="$phases" data-test="file-phases-list">
             <flux:table.columns>
-                <flux:table.column>{{ __('File') }}</flux:table.column>
+                <flux:table.column>{{ __('Case file') }}</flux:table.column>
                 <flux:table.column>{{ __('Phase') }}</flux:table.column>
                 <flux:table.column>{{ __('Responsible') }}</flux:table.column>
-                <flux:table.column>{{ __('Start') }}</flux:table.column>
-                <flux:table.column>{{ __('End') }}</flux:table.column>
+                <flux:table.column>{{ __('Start date') }}</flux:table.column>
+                <flux:table.column>{{ __('End date') }}</flux:table.column>
                 <flux:table.column>{{ __('Alert date') }}</flux:table.column>
             </flux:table.columns>
             <flux:table.rows>

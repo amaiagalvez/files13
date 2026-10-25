@@ -1,8 +1,8 @@
-<x-layouts::app :title="__('Files')">
+<x-layouts::app :title="__('Case files')">
     <div class="flex flex-col gap-6">
         <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
             <div class="min-w-0">
-                <flux:heading level="1" size="xl" data-test="files-home-heading">{{ __('Files') }}</flux:heading>
+                <flux:heading level="1" size="xl" data-test="files-home-heading">{{ __('Case files') }}</flux:heading>
                 <flux:text class="mt-1 text-sm text-zinc-600 dark:text-zinc-400">{{ __('Your files and the alerts of their open phases.') }}</flux:text>
             </div>
             <div class="flex gap-2">

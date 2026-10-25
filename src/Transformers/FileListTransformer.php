@@ -76,7 +76,7 @@ class FileListTransformer extends ListTransformer
 
     protected function resourceLabel(): string
     {
-        return __('Files');
+        return __('Case files');
     }
 
     protected function resourceKey(): string

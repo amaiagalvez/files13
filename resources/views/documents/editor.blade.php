@@ -2,7 +2,7 @@
     <div class="flex h-full flex-col gap-4">
         <div class="flex flex-wrap items-start justify-between gap-x-4 gap-y-3">
             <flux:heading level="1" size="xl" data-test="document-editor-heading">{{ $document->name }}</flux:heading>
-            <flux:button variant="ghost" icon="arrow-left" :href="url()->previous()" data-test="document-editor-back">{{ __('Back') }}</flux:button>
+            <flux:button variant="ghost" icon="arrow-left" :href="url()->previous()" data-test="document-editor-back">{{ __('Go back') }}</flux:button>
         </div>
 
         @if ($config === null)

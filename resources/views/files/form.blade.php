@@ -29,14 +29,14 @@
     <div class="grid grid-cols-2 gap-4">
         <flux:field>
             <x-basics13::forms.field-label :request="\Files13\Http\Requests\FileRequest::class" field="start_date" test="file-start_date-info" for="file-start_date">
-                {{ __('Start') }}
+                {{ __('Start date') }}
             </x-basics13::forms.field-label>
             <flux:input type="date" id="file-start_date" name="start_date" x-model="form.start_date" data-test="file-start_date" />
             <flux:error name="start_date" />
         </flux:field>
         <flux:field>
             <x-basics13::forms.field-label :request="\Files13\Http\Requests\FileRequest::class" field="end_date" test="file-end_date-info" for="file-end_date">
-                {{ __('End') }}
+                {{ __('End date') }}
             </x-basics13::forms.field-label>
             <flux:input type="date" id="file-end_date" name="end_date" x-model="form.end_date" data-test="file-end_date" />
             <flux:error name="end_date" />
@@ -93,7 +93,7 @@
     </flux:field>
     <flux:field>
         <x-basics13::forms.field-label :request="\Files13\Http\Requests\FileRequest::class" field="location_id" test="file-location_id-info" for="file-location_id">
-            {{ __('Location') }}
+            {{ __('Location calendar') }}
         </x-basics13::forms.field-label>
         <flux:select id="file-location_id" name="location_id" x-model="form.location_id" data-test="file-location_id">
             <option value="">{{ __('—') }}</option>
