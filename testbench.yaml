@@ -1,0 +1,3 @@
+providers:
+  - Locations13\ServiceProvider
+  - Files13\ServiceProvider
