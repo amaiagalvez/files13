@@ -1,4 +1,5 @@
 {
+    "+:count more": "+:count gehiago",
     "A document open in the editor cannot be deleted.": "Editorean irekita dagoen dokumentu bat ezin da ezabatu.",
     "A user responsible for a phase of the file cannot be removed from it.": "Espedientearen fase baten arduraduna ezin da espedientetik kendu.",
     "Accumulates days": "Egunak metatzen ditu",
@@ -124,6 +125,7 @@
     "For companies": "Enpresentzat",
     "For people": "Pertsonentzat",
     "Format": "Formatua",
+    "Home": "Hasiera",
     "How a file was closed.": "Espediente bat nola itxi zen.",
     "Identifier": "Identifikatzailea",
     "Impugned": "Inpugnatua",
@@ -144,7 +146,9 @@
     "New subject": "Gai berria",
     "New template": "Txantiloi berria",
     "New type": "Mota berria",
+    "Next month": "Hurrengo hilabetea",
     "No": "Ez",
+    "No alerts ahead.": "Ez dago abisurik zain.",
     "No changes yet.": "Oraindik ez dago aldaketarik.",
     "No phase matches.": "Ez dago bat datorren faserik.",
     "No template": "Txantiloirik gabe",
@@ -157,6 +161,7 @@
     "Phase": "Fasea",
     "Phases": "Faseak",
     "Phases of the files": "Espedienteen faseak",
+    "Previous month": "Aurreko hilabetea",
     "Remove applicant": "Eskatzailea kendu",
     "Remove day": "Eguna kendu",
     "Remove document": "Dokumentua kendu",
@@ -187,6 +192,7 @@
     "The file has no documents.": "Espedienteak ez du dokumenturik.",
     "The file has no phases.": "Espedienteak ez du faserik.",
     "The nearest alert first.": "Abisu hurbilena lehenengo.",
+    "Today": "Gaur",
     "track.create": "Sortua",
     "track.delete": "Zakarrontzira eramana",
     "track.destroy": "Betiko ezabatua",
@@ -198,6 +204,7 @@
     "Types": "Motak",
     "Unit": "Unitatea",
     "Up to :size MB.": ":size MB arte.",
+    "Upcoming alerts": "Hurrengo abisuak",
     "Update ending": "Bukaera eguneratu",
     "Update file": "Espedientea eguneratu",
     "Update location": "Lekua eguneratu",
@@ -213,5 +220,7 @@
     "Years": "Urteak",
     "Yes": "Bai",
     "You can read this document but not change it.": "Dokumentu hau irakur dezakezu, baina ezin duzu aldatu.",
-    "You can view this file but not change it.": "Espediente hau ikus dezakezu, baina ezin duzu aldatu."
+    "You can view this file but not change it.": "Espediente hau ikus dezakezu, baina ezin duzu aldatu.",
+    "You have no files yet.": "Oraindik ez duzu espedienterik.",
+    "Your files and the alerts of their open phases.": "Zure espedienteak eta haien fase irekien abisuak."
 }

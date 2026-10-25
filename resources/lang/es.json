@@ -1,4 +1,5 @@
 {
+    "+:count more": "+:count más",
     "A document open in the editor cannot be deleted.": "Un documento abierto en el editor no se puede eliminar.",
     "A user responsible for a phase of the file cannot be removed from it.": "Un usuario responsable de una fase del expediente no se puede quitar de él.",
     "Accumulates days": "Acumula días",
@@ -124,6 +125,7 @@
     "For companies": "Para empresas",
     "For people": "Para personas",
     "Format": "Formato",
+    "Home": "Inicio",
     "How a file was closed.": "Cómo se cerró un expediente.",
     "Identifier": "Identificador",
     "Impugned": "Impugnado",
@@ -144,7 +146,9 @@
     "New subject": "Nuevo tema",
     "New template": "Nueva plantilla",
     "New type": "Nuevo tipo",
+    "Next month": "Mes siguiente",
     "No": "No",
+    "No alerts ahead.": "No hay avisos pendientes.",
     "No changes yet.": "Todavía no hay cambios.",
     "No phase matches.": "Ninguna fase coincide.",
     "No template": "Sin plantilla",
@@ -157,6 +161,7 @@
     "Phase": "Fase",
     "Phases": "Fases",
     "Phases of the files": "Fases de los expedientes",
+    "Previous month": "Mes anterior",
     "Remove applicant": "Quitar solicitante",
     "Remove day": "Quitar día",
     "Remove document": "Quitar documento",
@@ -187,6 +192,7 @@
     "The file has no documents.": "El expediente no tiene documentos.",
     "The file has no phases.": "El expediente no tiene fases.",
     "The nearest alert first.": "Primero el aviso más próximo.",
+    "Today": "Hoy",
     "track.create": "Creado",
     "track.delete": "Enviado a la papelera",
     "track.destroy": "Eliminado definitivamente",
@@ -198,6 +204,7 @@
     "Types": "Tipos",
     "Unit": "Unidad",
     "Up to :size MB.": "Hasta :size MB.",
+    "Upcoming alerts": "Próximos avisos",
     "Update ending": "Actualizar cierre",
     "Update file": "Actualizar expediente",
     "Update location": "Actualizar lugar",
@@ -213,5 +220,7 @@
     "Years": "Años",
     "Yes": "Sí",
     "You can read this document but not change it.": "Puedes leer este documento, pero no cambiarlo.",
-    "You can view this file but not change it.": "Puedes ver este expediente, pero no cambiarlo."
+    "You can view this file but not change it.": "Puedes ver este expediente, pero no cambiarlo.",
+    "You have no files yet.": "Todavía no tienes expedientes.",
+    "Your files and the alerts of their open phases.": "Tus expedientes y los avisos de sus fases abiertas."
 }

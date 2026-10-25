@@ -1,4 +1,5 @@
 {
+    "+:count more": "+:count more",
     "A document open in the editor cannot be deleted.": "A document open in the editor cannot be deleted.",
     "A user responsible for a phase of the file cannot be removed from it.": "A user responsible for a phase of the file cannot be removed from it.",
     "Accumulates days": "Accumulates days",
@@ -124,6 +125,7 @@
     "For companies": "For companies",
     "For people": "For people",
     "Format": "Format",
+    "Home": "Home",
     "How a file was closed.": "How a file was closed.",
     "Identifier": "Identifier",
     "Impugned": "Impugned",
@@ -144,7 +146,9 @@
     "New subject": "New subject",
     "New template": "New template",
     "New type": "New type",
+    "Next month": "Next month",
     "No": "No",
+    "No alerts ahead.": "No alerts ahead.",
     "No changes yet.": "No changes yet.",
     "No phase matches.": "No phase matches.",
     "No template": "No template",
@@ -157,6 +161,7 @@
     "Phase": "Phase",
     "Phases": "Phases",
     "Phases of the files": "Phases of the files",
+    "Previous month": "Previous month",
     "Remove applicant": "Remove applicant",
     "Remove day": "Remove day",
     "Remove document": "Remove document",
@@ -187,6 +192,7 @@
     "The file has no documents.": "The file has no documents.",
     "The file has no phases.": "The file has no phases.",
     "The nearest alert first.": "The nearest alert first.",
+    "Today": "Today",
     "track.create": "Created",
     "track.delete": "Moved to the trash",
     "track.destroy": "Deleted permanently",
@@ -198,6 +204,7 @@
     "Types": "Types",
     "Unit": "Unit",
     "Up to :size MB.": "Up to :size MB.",
+    "Upcoming alerts": "Upcoming alerts",
     "Update ending": "Update ending",
     "Update file": "Update file",
     "Update location": "Update location",
@@ -213,5 +220,7 @@
     "Years": "Years",
     "Yes": "Yes",
     "You can read this document but not change it.": "You can read this document but not change it.",
-    "You can view this file but not change it.": "You can view this file but not change it."
+    "You can view this file but not change it.": "You can view this file but not change it.",
+    "You have no files yet.": "You have no files yet.",
+    "Your files and the alerts of their open phases.": "Your files and the alerts of their open phases."
 }

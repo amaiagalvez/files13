@@ -1,4 +1,5 @@
 {
+    "+:count more": "+:count de plus",
     "A document open in the editor cannot be deleted.": "Un document ouvert dans l’éditeur ne peut pas être supprimé.",
     "A user responsible for a phase of the file cannot be removed from it.": "Un utilisateur responsable d’une phase du dossier ne peut pas en être retiré.",
     "Accumulates days": "Cumule des jours",
@@ -124,6 +125,7 @@
     "For companies": "Pour les entreprises",
     "For people": "Pour les personnes",
     "Format": "Format",
+    "Home": "Accueil",
     "How a file was closed.": "Comment un dossier a été clôturé.",
     "Identifier": "Identifiant",
     "Impugned": "Contesté",
@@ -144,7 +146,9 @@
     "New subject": "Nouveau sujet",
     "New template": "Nouveau modèle",
     "New type": "Nouveau type",
+    "Next month": "Mois suivant",
     "No": "Non",
+    "No alerts ahead.": "Aucune alerte à venir.",
     "No changes yet.": "Aucune modification pour l’instant.",
     "No phase matches.": "Aucune phase ne correspond.",
     "No template": "Sans modèle",
@@ -157,6 +161,7 @@
     "Phase": "Phase",
     "Phases": "Phases",
     "Phases of the files": "Phases des dossiers",
+    "Previous month": "Mois précédent",
     "Remove applicant": "Retirer le demandeur",
     "Remove day": "Retirer le jour",
     "Remove document": "Retirer le document",
@@ -187,6 +192,7 @@
     "The file has no documents.": "Le dossier n’a pas de documents.",
     "The file has no phases.": "Le dossier n’a pas de phases.",
     "The nearest alert first.": "L’alerte la plus proche d’abord.",
+    "Today": "Aujourd’hui",
     "track.create": "Créé",
     "track.delete": "Mis à la corbeille",
     "track.destroy": "Supprimé définitivement",
@@ -198,6 +204,7 @@
     "Types": "Types",
     "Unit": "Unité",
     "Up to :size MB.": "Jusqu’à :size Mo.",
+    "Upcoming alerts": "Prochaines alertes",
     "Update ending": "Mettre à jour la clôture",
     "Update file": "Mettre à jour le dossier",
     "Update location": "Mettre à jour le lieu",
@@ -213,5 +220,7 @@
     "Years": "Années",
     "Yes": "Oui",
     "You can read this document but not change it.": "Vous pouvez lire ce document, mais pas le modifier.",
-    "You can view this file but not change it.": "Vous pouvez voir ce dossier, mais pas le modifier."
+    "You can view this file but not change it.": "Vous pouvez voir ce dossier, mais pas le modifier.",
+    "You have no files yet.": "Vous n’avez pas encore de dossiers.",
+    "Your files and the alerts of their open phases.": "Vos dossiers et les alertes de leurs phases ouvertes."
 }

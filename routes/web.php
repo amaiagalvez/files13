@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Files13\Http\Controllers\FileController;
 use Files13\Http\Controllers\PhaseController;
 use Files13\Http\Controllers\DocumentController;
+use Files13\Http\Controllers\FileHomeController;
 use Files13\Http\Controllers\FileTypeController;
 use Files13\Http\Controllers\FilePhaseController;
 use Files13\Http\Controllers\FileTrashController;
@@ -117,6 +118,8 @@ Route::prefix('files')->middleware(['web', 'auth', 'verified'])->group(function 
     Route::patch('templates/trash/{document}', [DocumentTrashController::class, 'restore'])->whereNumber('document')->name('documents.trash.restore');
     Route::delete('templates/trash/{document}', [DocumentTrashController::class, 'destroy'])->whereNumber('document')->name('documents.trash.destroy');
 
+    Route::get('home', [FileHomeController::class, 'index'])->name('files-home');
+    Route::get('calendar', [FileHomeController::class, 'calendar'])->name('files-calendar');
     Route::get('/', [FileController::class, 'index'])->name('files.index');
     Route::get('mine', [FileController::class, 'mine'])->name('files.mine');
     Route::post('/', [FileController::class, 'store'])->name('files.store');
