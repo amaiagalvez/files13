@@ -7,6 +7,7 @@ use Files13\Models\FileType;
 use Files13\Models\FileEnding;
 use Files13\Models\FileStatus;
 use Files13\Models\FileSubject;
+use Files13\Models\FileLocation;
 use Basics13\Tests\ChecksResourceArchitecture;
 
 class ArchitectureTest extends TestCase
@@ -25,6 +26,7 @@ class ArchitectureTest extends TestCase
             'FileType' => FileType::class,
             'FileStatus' => FileStatus::class,
             'FileEnding' => FileEnding::class,
+            'FileLocation' => FileLocation::class,
         ];
     }
 }

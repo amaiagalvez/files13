@@ -5,14 +5,17 @@ use Files13\Http\Controllers\FileTypeController;
 use Files13\Http\Controllers\FileEndingController;
 use Files13\Http\Controllers\FileStatusController;
 use Files13\Http\Controllers\FileSubjectController;
+use Files13\Http\Controllers\FileLocationController;
 use Files13\Http\Controllers\FileTypeTrashController;
 use Files13\Http\Controllers\FileEndingTrashController;
 use Files13\Http\Controllers\FileStatusTrashController;
 use Files13\Http\Controllers\FileSubjectTrashController;
 use Files13\Http\Controllers\FileTypeArchivedController;
+use Files13\Http\Controllers\FileLocationTrashController;
 use Files13\Http\Controllers\FileEndingArchivedController;
 use Files13\Http\Controllers\FileStatusArchivedController;
 use Files13\Http\Controllers\FileSubjectArchivedController;
+use Files13\Http\Controllers\FileLocationArchivedController;
 
 /**
  * Every screen of the package lives under `files`, and keeps the bare resource names the
@@ -66,4 +69,16 @@ Route::prefix('files')->middleware(['web', 'auth', 'verified'])->group(function 
     Route::get('endings/trash', [FileEndingTrashController::class, 'index'])->name('file-endings.trash.index');
     Route::patch('endings/trash/{file_ending}', [FileEndingTrashController::class, 'restore'])->whereNumber('file_ending')->name('file-endings.trash.restore');
     Route::delete('endings/trash/{file_ending}', [FileEndingTrashController::class, 'destroy'])->whereNumber('file_ending')->name('file-endings.trash.destroy');
+
+    Route::get('locations', [FileLocationController::class, 'index'])->name('file-locations.index');
+    Route::post('locations', [FileLocationController::class, 'store'])->name('file-locations.store');
+    Route::put('locations/{file_location}', [FileLocationController::class, 'update'])->whereNumber('file_location')->name('file-locations.update');
+    Route::delete('locations/{file_location}', [FileLocationController::class, 'destroy'])->whereNumber('file_location')->name('file-locations.destroy');
+    Route::get('locations/options', [FileLocationController::class, 'selectOptions'])->name('file-locations.options')->middleware('throttle:60,1');
+    Route::get('locations/archived', [FileLocationArchivedController::class, 'index'])->name('file-locations.archived.index');
+    Route::patch('locations/{file_location}/archive', [FileLocationArchivedController::class, 'archive'])->whereNumber('file_location')->name('file-locations.archive');
+    Route::patch('locations/archived/{file_location}', [FileLocationArchivedController::class, 'activate'])->whereNumber('file_location')->name('file-locations.archived.activate');
+    Route::get('locations/trash', [FileLocationTrashController::class, 'index'])->name('file-locations.trash.index');
+    Route::patch('locations/trash/{file_location}', [FileLocationTrashController::class, 'restore'])->whereNumber('file_location')->name('file-locations.trash.restore');
+    Route::delete('locations/trash/{file_location}', [FileLocationTrashController::class, 'destroy'])->whereNumber('file_location')->name('file-locations.trash.destroy');
 });

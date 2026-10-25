@@ -1,0 +1,86 @@
+<?php
+
+namespace Files13\Models;
+
+use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Model;
+use Files13\Policies\FileLocationPolicy;
+use Basics13\Concerns\TracksAuditColumns;
+use Basics13\Concerns\TransactionalDelete;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Files13\Database\Factories\FileLocationFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Attributes\UsePolicy;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Attributes\UseFactory;
+
+/**
+ * A calendar of named days (lekua) a file can be tied to, such as the holidays of a place. It is
+ * not a geographic place: those come from locations13.
+ *
+ * @property int $id
+ * @property string $name_eu
+ * @property string|null $name_es
+ * @property string|null $name_fr
+ * @property string|null $name_en
+ * @property string|null $notes
+ * @property bool $active
+ * @property int|null $created_by
+ * @property int|null $updated_by
+ * @property int|null $deleted_by
+ * @property-read CarbonImmutable|null $created_at
+ * @property-read CarbonImmutable|null $updated_at
+ * @property-read CarbonImmutable|null $deleted_at
+ * @property-read Collection<int, LocationDay> $days
+ */
+#[Fillable(['name_eu', 'name_es', 'name_fr', 'name_en', 'notes'])]
+#[UsePolicy(FileLocationPolicy::class)]
+#[UseFactory(FileLocationFactory::class)]
+class FileLocation extends Model
+{
+    /** @use HasFactory<FileLocationFactory> */
+    use HasFactory, SoftDeletes, TracksAuditColumns, TransactionalDelete;
+
+    /**
+     * Language columns for the name.
+     *
+     * @var list<string>
+     */
+    public const NAME_FIELDS = ['name_eu', 'name_es', 'name_fr', 'name_en'];
+
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected $table = 'FIL_locations';
+
+    /**
+     * @var array{active: bool}
+     */
+    protected $attributes = [
+        'active' => true,
+    ];
+
+    /**
+     * @return array{active: 'boolean'}
+     */
+    protected function casts(): array
+    {
+        return [
+            'active' => 'boolean',
+        ];
+    }
+
+    /**
+     * The days of the calendar, in date order.
+     *
+     * @return HasMany<LocationDay, $this>
+     */
+    public function days(): HasMany
+    {
+        return $this->hasMany(LocationDay::class, 'location_id')->orderBy('date');
+    }
+}
