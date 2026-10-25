@@ -4,6 +4,7 @@ namespace Files13\Models;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Model;
+use Basics13\Concerns\ResolvesUserModel;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -23,10 +24,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string|null $notes
  * @property-read File $file
  * @property-read Phase $phase
+ * @property-read Model|null $responsible
  */
 #[Fillable(['phase_id', 'user_id', 'start_date', 'end_date', 'notes'])]
 class FilePhase extends Model
 {
+    use ResolvesUserModel;
+
     /**
      * The table associated with the model.
      *
@@ -102,5 +106,15 @@ class FilePhase extends Model
     public function phase(): BelongsTo
     {
         return $this->belongsTo(Phase::class, 'phase_id')->withTrashed();
+    }
+
+    /**
+     * The account responsible for the phase, over the model the host configures.
+     *
+     * @return BelongsTo<Model, $this>
+     */
+    public function responsible(): BelongsTo
+    {
+        return $this->belongsTo($this->userModelClass(), 'user_id');
     }
 }

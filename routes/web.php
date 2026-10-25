@@ -107,6 +107,8 @@ Route::prefix('files')->middleware(['web', 'auth', 'verified'])->group(function 
     Route::get('{file}', [FileController::class, 'show'])->whereNumber('file')->name('files.show');
     Route::put('{file}', [FileController::class, 'update'])->whereNumber('file')->name('files.update');
     Route::delete('{file}', [FileController::class, 'destroy'])->whereNumber('file')->name('files.destroy');
+    Route::get('phases-of-files', [FilePhaseController::class, 'index'])->name('file-phases.index');
+    Route::get('phases-of-files/mine', [FilePhaseController::class, 'mine'])->name('file-phases.mine');
     Route::put('{file}/phases', [FilePhaseController::class, 'update'])->whereNumber('file')->name('files.phases.update');
     Route::get('archived', [FileArchivedController::class, 'index'])->name('files.archived.index');
     Route::patch('{file}/archive', [FileArchivedController::class, 'archive'])->whereNumber('file')->name('files.archive');

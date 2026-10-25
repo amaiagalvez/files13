@@ -3,11 +3,14 @@
 namespace Files13\Http\Controllers;
 
 use Files13\Models\File;
+use Illuminate\View\View;
 use Files13\Models\FilePhase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\RedirectResponse;
 use Basics13\Http\Controllers\Controller;
+use Files13\Http\Requests\FileListRequest;
 use Files13\Http\Requests\FilePhasesRequest;
+use Files13\Queries\Files\FilePhaseListQuery;
 
 /**
  * The phases of a file, saved from the file sheet. They are rows of the file, not a resource: no
@@ -15,6 +18,16 @@ use Files13\Http\Requests\FilePhasesRequest;
  */
 class FilePhaseController extends Controller
 {
+    public function index(FileListRequest $request, FilePhaseListQuery $query): View
+    {
+        return $this->phases($request, $query, mine: false);
+    }
+
+    public function mine(FileListRequest $request, FilePhaseListQuery $query): View
+    {
+        return $this->phases($request, $query, mine: true);
+    }
+
     public function update(FilePhasesRequest $request, File $file): RedirectResponse
     {
         /** @var list<array{id?: int|null, phase_id: int, user_id?: int|null, start_date?: string|null, end_date?: string|null, notes?: string|null}> $rows */
@@ -62,5 +75,16 @@ class FilePhaseController extends Controller
                 $filePhase->save();
             }
         }
+    }
+
+    private function phases(FileListRequest $request, FilePhaseListQuery $query, bool $mine): View
+    {
+        $search = $request->search();
+
+        return view('files13::files.phases', [
+            'phases' => $query->list($search, $request->user(), $mine),
+            'search' => $search,
+            'mine' => $mine,
+        ]);
     }
 }

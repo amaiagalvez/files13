@@ -27,6 +27,7 @@ class FilesAccessSeeder extends Seeder
     private const MENUS = [
         ['key' => 'files13', 'label' => 'Files', 'sort' => 200],
         ['key' => 'files', 'parent' => 'files13', 'label' => 'Files', 'sort' => 10, 'icon' => 'folder-open', 'route' => 'files.index', 'active' => 'files.*', 'except' => 'files.mine', 'permissions' => ['files.view', 'files.view_own', 'files.manage_own']],
+        ['key' => 'file-phases', 'parent' => 'files13', 'label' => 'Phases of the files', 'sort' => 30, 'icon' => 'clock', 'route' => 'file-phases.index', 'active' => 'file-phases.*', 'permissions' => ['files.view', 'files.view_own', 'files.manage_own']],
         ['key' => 'files-mine', 'parent' => 'files13', 'label' => 'My files', 'sort' => 20, 'icon' => 'user', 'route' => 'files.mine', 'active' => 'files.mine', 'permissions' => ['files.view', 'files.view_own', 'files.manage_own']],
         ['key' => 'file-subjects', 'parent' => 'files13', 'label' => 'Subjects', 'sort' => 110, 'icon' => 'tag', 'route' => 'file-subjects.index', 'active' => 'file-subjects.*', 'permissions' => ['file_subjects.view']],
         ['key' => 'file-types', 'parent' => 'files13', 'label' => 'Types', 'sort' => 120, 'icon' => 'squares-2x2', 'route' => 'file-types.index', 'active' => 'file-types.*', 'permissions' => ['file_types.view']],
