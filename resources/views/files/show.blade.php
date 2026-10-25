@@ -165,11 +165,9 @@
                                     @if ($document->editing)
                                         <flux:badge size="sm" color="amber">{{ __('Open in the editor') }}</flux:badge>
                                     @endif
-                                    @if (\Illuminate\Support\Facades\Route::has('documents.editor'))
                                     <a class="text-sm hover:underline" href="{{ route('documents.editor', $document) }}" data-test="file-document-open-{{ $document->id }}">
                                         {{ $writable ? __('Edit in the editor') : __('Open') }}
                                     </a>
-                                    @endif
                                     @if ($writable)
                                         <form method="POST" action="{{ route('files.documents.update', [$file, $document]) }}" class="flex items-center gap-2">
                                             @csrf

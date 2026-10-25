@@ -9,6 +9,7 @@ use Files13\Http\Controllers\FilePhaseController;
 use Files13\Http\Controllers\FileTrashController;
 use Files13\Http\Controllers\FileEndingController;
 use Files13\Http\Controllers\FileStatusController;
+use Files13\Http\Controllers\OnlyOfficeController;
 use Files13\Http\Controllers\PhaseTrashController;
 use Files13\Http\Controllers\FileSubjectController;
 use Files13\Http\Controllers\FileArchivedController;
@@ -128,6 +129,7 @@ Route::prefix('files')->middleware(['web', 'auth', 'verified'])->group(function 
     Route::post('{file}/documents', [FileDocumentController::class, 'store'])->whereNumber('file')->name('files.documents.store');
     Route::patch('{file}/documents/{document}', [FileDocumentController::class, 'update'])->whereNumber(['file', 'document'])->name('files.documents.update');
     Route::delete('{file}/documents/{document}', [FileDocumentController::class, 'destroy'])->whereNumber(['file', 'document'])->name('files.documents.destroy');
+    Route::get('documents/{document}/editor', [OnlyOfficeController::class, 'editor'])->whereNumber('document')->name('documents.editor');
     Route::get('archived', [FileArchivedController::class, 'index'])->name('files.archived.index');
     Route::patch('{file}/archive', [FileArchivedController::class, 'archive'])->whereNumber('file')->name('files.archive');
     Route::patch('archived/{file}', [FileArchivedController::class, 'activate'])->whereNumber('file')->name('files.archived.activate');

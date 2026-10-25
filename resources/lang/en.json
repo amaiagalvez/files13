@@ -13,6 +13,7 @@
     "All files": "All files",
     "Applicant": "Applicant",
     "Applicants": "Applicants",
+    "Back": "Back",
     "Calendar": "Calendar",
     "Calendars of days that files can be tied to.": "Calendars of days that files can be tied to.",
     "Cancel": "Cancel",
@@ -180,6 +181,9 @@
     "Subject": "Subject",
     "Subjects": "Subjects",
     "Template": "Template",
+    "The document editor is not configured.": "The document editor is not configured.",
+    "The document has no content yet. Upload one to edit it.": "The document has no content yet. Upload one to edit it.",
+    "The document server cannot be reached.": "The document server cannot be reached.",
     "The file has no documents.": "The file has no documents.",
     "The file has no phases.": "The file has no phases.",
     "The nearest alert first.": "The nearest alert first.",
@@ -208,5 +212,6 @@
     "Without folder": "Without folder",
     "Years": "Years",
     "Yes": "Yes",
+    "You can read this document but not change it.": "You can read this document but not change it.",
     "You can view this file but not change it.": "You can view this file but not change it."
 }

@@ -13,6 +13,7 @@
     "All files": "Espediente guztiak",
     "Applicant": "Eskatzailea",
     "Applicants": "Eskatzaileak",
+    "Back": "Itzuli",
     "Calendar": "Egutegia",
     "Calendars of days that files can be tied to.": "Espedienteak lotu daitezkeen egun-egutegiak.",
     "Cancel": "Utzi",
@@ -180,6 +181,9 @@
     "Subject": "Gaia",
     "Subjects": "Gaiak",
     "Template": "Txantiloia",
+    "The document editor is not configured.": "Dokumentu-editorea ez dago konfiguratuta.",
+    "The document has no content yet. Upload one to edit it.": "Dokumentuak ez du edukirik oraindik. Igo bat editatzeko.",
+    "The document server cannot be reached.": "Ezin da dokumentu-zerbitzarira iritsi.",
     "The file has no documents.": "Espedienteak ez du dokumenturik.",
     "The file has no phases.": "Espedienteak ez du faserik.",
     "The nearest alert first.": "Abisu hurbilena lehenengo.",
@@ -208,5 +212,6 @@
     "Without folder": "Karpetarik gabe",
     "Years": "Urteak",
     "Yes": "Bai",
+    "You can read this document but not change it.": "Dokumentu hau irakur dezakezu, baina ezin duzu aldatu.",
     "You can view this file but not change it.": "Espediente hau ikus dezakezu, baina ezin duzu aldatu."
 }

@@ -5,9 +5,12 @@ namespace Files13;
 use Files13\Models\File;
 use Files13\Models\Document;
 use Files13\Models\FilePhase;
+use Illuminate\Routing\Router;
 use Files13\Models\DocumentTrack;
 use Files13\Observers\FileObserver;
 use Files13\Observers\FilePhaseObserver;
+use Files13\Http\Middleware\TrustedOnlyOfficeIp;
+use Files13\Http\Middleware\VerifyOnlyOfficeToken;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
@@ -32,7 +35,12 @@ class ServiceProvider extends BaseServiceProvider
             __DIR__.'/../resources/lang' => lang_path('vendor/files13'),
         ], 'files13-lang');
 
+        $router = $this->app->make(Router::class);
+        $router->aliasMiddleware('files13.trusted-ip', TrustedOnlyOfficeIp::class);
+        $router->aliasMiddleware('files13.onlyoffice-token', VerifyOnlyOfficeToken::class);
+
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+        $this->loadRoutesFrom(__DIR__.'/../routes/onlyoffice.php');
 
         File::observe(FileObserver::class);
         FilePhase::observe(FilePhaseObserver::class);

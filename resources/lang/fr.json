@@ -13,6 +13,7 @@
     "All files": "Tous les dossiers",
     "Applicant": "Demandeur",
     "Applicants": "Demandeurs",
+    "Back": "Retour",
     "Calendar": "Calendrier",
     "Calendars of days that files can be tied to.": "Calendriers de jours auxquels les dossiers peuvent être rattachés.",
     "Cancel": "Annuler",
@@ -180,6 +181,9 @@
     "Subject": "Sujet",
     "Subjects": "Sujets",
     "Template": "Modèle",
+    "The document editor is not configured.": "L’éditeur de documents n’est pas configuré.",
+    "The document has no content yet. Upload one to edit it.": "Le document n’a pas encore de contenu. Téléversez-en un pour le modifier.",
+    "The document server cannot be reached.": "Le serveur de documents est injoignable.",
     "The file has no documents.": "Le dossier n’a pas de documents.",
     "The file has no phases.": "Le dossier n’a pas de phases.",
     "The nearest alert first.": "L’alerte la plus proche d’abord.",
@@ -208,5 +212,6 @@
     "Without folder": "Sans dossier",
     "Years": "Années",
     "Yes": "Oui",
+    "You can read this document but not change it.": "Vous pouvez lire ce document, mais pas le modifier.",
     "You can view this file but not change it.": "Vous pouvez voir ce dossier, mais pas le modifier."
 }

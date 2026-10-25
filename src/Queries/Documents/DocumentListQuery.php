@@ -5,8 +5,8 @@ namespace Files13\Queries\Documents;
 use Files13\Models\Document;
 use Basics13\Queries\ListQueryBase;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 /**
  * The document templates. The documents of the files are listed on each file sheet instead.

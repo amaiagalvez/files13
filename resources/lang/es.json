@@ -13,6 +13,7 @@
     "All files": "Todos los expedientes",
     "Applicant": "Solicitante",
     "Applicants": "Solicitantes",
+    "Back": "Volver",
     "Calendar": "Calendario",
     "Calendars of days that files can be tied to.": "Calendarios de días a los que se pueden vincular los expedientes.",
     "Cancel": "Cancelar",
@@ -180,6 +181,9 @@
     "Subject": "Tema",
     "Subjects": "Temas",
     "Template": "Plantilla",
+    "The document editor is not configured.": "El editor de documentos no está configurado.",
+    "The document has no content yet. Upload one to edit it.": "El documento todavía no tiene contenido. Sube uno para editarlo.",
+    "The document server cannot be reached.": "No se puede acceder al servidor de documentos.",
     "The file has no documents.": "El expediente no tiene documentos.",
     "The file has no phases.": "El expediente no tiene fases.",
     "The nearest alert first.": "Primero el aviso más próximo.",
@@ -208,5 +212,6 @@
     "Without folder": "Sin carpeta",
     "Years": "Años",
     "Yes": "Sí",
+    "You can read this document but not change it.": "Puedes leer este documento, pero no cambiarlo.",
     "You can view this file but not change it.": "Puedes ver este expediente, pero no cambiarlo."
 }
