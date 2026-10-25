@@ -2,6 +2,7 @@
 
 namespace Files13\Tests\Feature\OnlyOffice;
 
+use App\Models\User;
 use Files13\Models\File;
 use Files13\Tests\TestCase;
 use Files13\Models\Document;
@@ -24,6 +25,8 @@ class OnlyOfficeTest extends TestCase
 
     private File $file;
 
+    private User $editor;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -34,6 +37,7 @@ class OnlyOfficeTest extends TestCase
             'files13.onlyoffice.jwt_secret' => self::SECRET,
         ]);
 
+        $this->editor = $this->holding(['files.manage']);
         $this->file = File::factory()->create();
         $this->document = Document::factory()->create(['name' => 'Txostena']);
         $this->document->storeUpload(UploadedFile::fake()->createWithContent('txostena.docx', 'zaharra'));
@@ -66,6 +70,45 @@ class OnlyOfficeTest extends TestCase
 
         $this->fromServer()->get(route('onlyoffice.get', ['document' => $this->document, 'token' => $this->token(readonly: true)]))->assertOk();
         $this->fromServer()->get(route('onlyoffice.get', ['document' => $other, 'token' => $this->token(readonly: true)]))->assertForbidden();
+    }
+
+    public function test_a_token_without_a_user_is_refused(): void
+    {
+        $token = OnlyOfficeToken::encode(['document' => $this->document->id, 'readonly' => true, 'user' => null], self::SECRET);
+
+        $this->fromServer()->get(route('onlyoffice.get', ['document' => $this->document, 'token' => $token]))->assertForbidden();
+    }
+
+    public function test_a_token_of_an_inactive_user_is_refused(): void
+    {
+        $token = $this->token(readonly: true);
+        $this->editor->forceFill(['active' => false])->save();
+
+        $this->fromServer()->get(route('onlyoffice.get', ['document' => $this->document, 'token' => $token]))->assertForbidden();
+    }
+
+    public function test_a_token_of_an_archived_document_is_refused(): void
+    {
+        $token = $this->token(readonly: true);
+        $this->document->forceFill(['active' => false])->save();
+
+        $this->fromServer()->get(route('onlyoffice.get', ['document' => $this->document, 'token' => $token]))->assertForbidden();
+    }
+
+    public function test_an_editable_token_of_a_user_who_lost_the_edit_permission_is_refused(): void
+    {
+        Http::fake();
+        $viewer = $this->holding(['files.view']);
+        $editable = $this->token(readonly: false, user: $viewer);
+
+        $this->fromServer()->get(route('onlyoffice.get', ['document' => $this->document, 'token' => $editable]))->assertForbidden();
+        $this->fromServer()->postJson(route('onlyoffice.callback', ['document' => $this->document, 'token' => $editable]), [
+            'status' => 2,
+            'url' => 'https://office.example.test/save',
+        ])->assertForbidden();
+
+        Http::assertNothingSent();
+        $this->fromServer()->get(route('onlyoffice.get', ['document' => $this->document, 'token' => $this->token(readonly: true, user: $viewer)]))->assertOk();
     }
 
     public function test_a_valid_save_writes_the_content_and_a_track(): void
@@ -149,9 +192,9 @@ class OnlyOfficeTest extends TestCase
         $this->fromServer()->postJson(route('onlyoffice.callback', ['document' => $this->document, 'token' => $token]), ['status' => 4])->assertForbidden();
     }
 
-    private function token(bool $readonly): string
+    private function token(bool $readonly, ?User $user = null): string
     {
-        return OnlyOfficeToken::encode(['document' => $this->document->id, 'readonly' => $readonly, 'user' => null], self::SECRET);
+        return OnlyOfficeToken::encode(['document' => $this->document->id, 'readonly' => $readonly, 'user' => ($user ?? $this->editor)->id], self::SECRET);
     }
 
     private function fromServer(): static
