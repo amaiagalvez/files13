@@ -20,6 +20,18 @@ class FilePhasesRequest extends FormRequest
 {
     use ResolvesUserModel;
 
+    /** @return array<string, string> */
+    public function attributes(): array
+    {
+        return [
+            'phases.*.phase_id' => __('Phase'),
+            'phases.*.user_id' => __('Responsible'),
+            'phases.*.start_date' => __('Start date'),
+            'phases.*.end_date' => __('End date'),
+            'phases.*.notes' => __('Notes'),
+        ];
+    }
+
     protected function prepareForValidation(): void
     {
         $rows = array_values(array_filter(

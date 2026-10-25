@@ -12,6 +12,12 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class FileLocationRequest extends FormRequest
 {
+    /** @return array<string, string> */
+    public function attributes(): array
+    {
+        return ['days.*.date' => __('Date'), 'days.*.name' => __('Name'), 'days.*.id' => __('Days')];
+    }
+
     /**
      * Trim every name, and turn a blank translation into an absent one: a language with no name is
      * stored as NULL so the unique index of that column does not see an empty string as a value.

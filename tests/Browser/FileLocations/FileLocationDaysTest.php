@@ -33,7 +33,11 @@ class FileLocationDaysTest extends DuskTestCase
                 ->click('dialog[open] [data-test="file-location-day-remove-0"]')
                 ->click('dialog[open] [data-test="file-location-day-add"]')
                 ->waitFor('dialog[open] [data-test="file-location-day-date-0"]')
-                ->keys('dialog[open] [data-test="file-location-day-date-0"]', '25072026')
+                // A date input takes typed keys in the order of the browser locale, so the value is
+                // set the way a date picker does and Alpine is told about it.
+                ->script("const day = document.querySelector('dialog[open] [data-test=\"file-location-day-date-0\"]'); day.value = '2026-07-25'; day.dispatchEvent(new Event('input', { bubbles: true }));");
+
+            $browser
                 ->type('dialog[open] [data-test="file-location-day-name-0"]', 'Santiago')
                 ->click('dialog[open] [data-test="file-location-submit"]')
                 ->waitForTextIn('[data-test="file-location-status"]', __('basics13::messages.updated'));

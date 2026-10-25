@@ -33,6 +33,9 @@ class FileRequest extends FormRequest
             'ending_id' => __('Ending'),
             'location_id' => __('Location calendar'),
             'district_id' => __('District'),
+            'user_ids.*' => __('Users'),
+            'applicants.*.applicant_type' => __('Kind'),
+            'applicants.*.applicant_id' => __('Identifier'),
         ];
     }
 

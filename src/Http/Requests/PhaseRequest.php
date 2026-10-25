@@ -15,6 +15,17 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 
 class PhaseRequest extends FormRequest
 {
+    /** @return array<string, string> */
+    public function attributes(): array
+    {
+        return [
+            'type_ids.*' => __('Types'),
+            'subjects.*.subject_id' => __('Subject'),
+            'subjects.*.alert' => __('Alert'),
+            'subjects.*.alert_unit' => __('Unit'),
+        ];
+    }
+
     /**
      * Trim every name, and turn a blank translation into an absent one: a language with no name is
      * stored as NULL so the unique index of that column does not see an empty string as a value.
