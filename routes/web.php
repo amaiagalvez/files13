@@ -108,7 +108,7 @@ Route::prefix('files')->middleware(['web', 'auth', 'verified'])->group(function 
     Route::delete('phases/trash/{phase}', [PhaseTrashController::class, 'destroy'])->whereNumber('phase')->name('phases.trash.destroy');
 
     Route::get('templates', [DocumentController::class, 'index'])->name('documents.index');
-    Route::post('templates', [DocumentController::class, 'store'])->name('documents.store');
+    Route::post('templates', [DocumentController::class, 'store'])->name('documents.store')->middleware('throttle:30,1');
     Route::put('templates/{document}', [DocumentController::class, 'update'])->whereNumber('document')->name('documents.update');
     Route::delete('templates/{document}', [DocumentController::class, 'destroy'])->whereNumber('document')->name('documents.destroy');
     Route::get('templates/archived', [DocumentArchivedController::class, 'index'])->name('documents.archived.index');
@@ -129,7 +129,7 @@ Route::prefix('files')->middleware(['web', 'auth', 'verified'])->group(function 
     Route::get('phases-of-files', [FilePhaseController::class, 'index'])->name('file-phases.index');
     Route::get('phases-of-files/mine', [FilePhaseController::class, 'mine'])->name('file-phases.mine');
     Route::put('{file}/phases', [FilePhaseController::class, 'update'])->whereNumber('file')->name('files.phases.update');
-    Route::post('{file}/documents', [FileDocumentController::class, 'store'])->whereNumber('file')->name('files.documents.store');
+    Route::post('{file}/documents', [FileDocumentController::class, 'store'])->whereNumber('file')->name('files.documents.store')->middleware('throttle:30,1');
     Route::patch('{file}/documents/{document}', [FileDocumentController::class, 'update'])->whereNumber(['file', 'document'])->name('files.documents.update');
     Route::delete('{file}/documents/{document}', [FileDocumentController::class, 'destroy'])->whereNumber(['file', 'document'])->name('files.documents.destroy');
     Route::get('documents/{document}/editor', [OnlyOfficeController::class, 'editor'])->whereNumber('document')->name('documents.editor');
