@@ -1,12 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Files13\Http\Controllers\PhaseController;
 use Files13\Http\Controllers\FileTypeController;
 use Files13\Http\Controllers\FileEndingController;
 use Files13\Http\Controllers\FileStatusController;
+use Files13\Http\Controllers\PhaseTrashController;
 use Files13\Http\Controllers\FileSubjectController;
 use Files13\Http\Controllers\FileLocationController;
 use Files13\Http\Controllers\FileTypeTrashController;
+use Files13\Http\Controllers\PhaseArchivedController;
 use Files13\Http\Controllers\FileEndingTrashController;
 use Files13\Http\Controllers\FileStatusTrashController;
 use Files13\Http\Controllers\FileSubjectTrashController;
@@ -81,4 +84,16 @@ Route::prefix('files')->middleware(['web', 'auth', 'verified'])->group(function 
     Route::get('locations/trash', [FileLocationTrashController::class, 'index'])->name('file-locations.trash.index');
     Route::patch('locations/trash/{file_location}', [FileLocationTrashController::class, 'restore'])->whereNumber('file_location')->name('file-locations.trash.restore');
     Route::delete('locations/trash/{file_location}', [FileLocationTrashController::class, 'destroy'])->whereNumber('file_location')->name('file-locations.trash.destroy');
+
+    Route::get('phases', [PhaseController::class, 'index'])->name('phases.index');
+    Route::post('phases', [PhaseController::class, 'store'])->name('phases.store');
+    Route::put('phases/{phase}', [PhaseController::class, 'update'])->whereNumber('phase')->name('phases.update');
+    Route::delete('phases/{phase}', [PhaseController::class, 'destroy'])->whereNumber('phase')->name('phases.destroy');
+    Route::get('phases/options', [PhaseController::class, 'selectOptions'])->name('phases.options')->middleware('throttle:60,1');
+    Route::get('phases/archived', [PhaseArchivedController::class, 'index'])->name('phases.archived.index');
+    Route::patch('phases/{phase}/archive', [PhaseArchivedController::class, 'archive'])->whereNumber('phase')->name('phases.archive');
+    Route::patch('phases/archived/{phase}', [PhaseArchivedController::class, 'activate'])->whereNumber('phase')->name('phases.archived.activate');
+    Route::get('phases/trash', [PhaseTrashController::class, 'index'])->name('phases.trash.index');
+    Route::patch('phases/trash/{phase}', [PhaseTrashController::class, 'restore'])->whereNumber('phase')->name('phases.trash.restore');
+    Route::delete('phases/trash/{phase}', [PhaseTrashController::class, 'destroy'])->whereNumber('phase')->name('phases.trash.destroy');
 });
