@@ -2,6 +2,7 @@
 
 namespace Files13\Tests\Unit;
 
+use Files13\Models\File;
 use Files13\Models\Phase;
 use Files13\Tests\TestCase;
 use Files13\Models\FileType;
@@ -29,6 +30,7 @@ class ArchitectureTest extends TestCase
             'FileEnding' => FileEnding::class,
             'FileLocation' => FileLocation::class,
             'Phase' => Phase::class,
+            'File' => File::class,
         ];
     }
 }

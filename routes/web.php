@@ -1,12 +1,16 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Files13\Http\Controllers\FileController;
 use Files13\Http\Controllers\PhaseController;
 use Files13\Http\Controllers\FileTypeController;
+use Files13\Http\Controllers\FilePhaseController;
+use Files13\Http\Controllers\FileTrashController;
 use Files13\Http\Controllers\FileEndingController;
 use Files13\Http\Controllers\FileStatusController;
 use Files13\Http\Controllers\PhaseTrashController;
 use Files13\Http\Controllers\FileSubjectController;
+use Files13\Http\Controllers\FileArchivedController;
 use Files13\Http\Controllers\FileLocationController;
 use Files13\Http\Controllers\FileTypeTrashController;
 use Files13\Http\Controllers\PhaseArchivedController;
@@ -96,4 +100,18 @@ Route::prefix('files')->middleware(['web', 'auth', 'verified'])->group(function 
     Route::get('phases/trash', [PhaseTrashController::class, 'index'])->name('phases.trash.index');
     Route::patch('phases/trash/{phase}', [PhaseTrashController::class, 'restore'])->whereNumber('phase')->name('phases.trash.restore');
     Route::delete('phases/trash/{phase}', [PhaseTrashController::class, 'destroy'])->whereNumber('phase')->name('phases.trash.destroy');
+
+    Route::get('/', [FileController::class, 'index'])->name('files.index');
+    Route::get('mine', [FileController::class, 'mine'])->name('files.mine');
+    Route::post('/', [FileController::class, 'store'])->name('files.store');
+    Route::get('{file}', [FileController::class, 'show'])->whereNumber('file')->name('files.show');
+    Route::put('{file}', [FileController::class, 'update'])->whereNumber('file')->name('files.update');
+    Route::delete('{file}', [FileController::class, 'destroy'])->whereNumber('file')->name('files.destroy');
+    Route::put('{file}/phases', [FilePhaseController::class, 'update'])->whereNumber('file')->name('files.phases.update');
+    Route::get('archived', [FileArchivedController::class, 'index'])->name('files.archived.index');
+    Route::patch('{file}/archive', [FileArchivedController::class, 'archive'])->whereNumber('file')->name('files.archive');
+    Route::patch('archived/{file}', [FileArchivedController::class, 'activate'])->whereNumber('file')->name('files.archived.activate');
+    Route::get('trash', [FileTrashController::class, 'index'])->name('files.trash.index');
+    Route::patch('trash/{file}', [FileTrashController::class, 'restore'])->whereNumber('file')->name('files.trash.restore');
+    Route::delete('trash/{file}', [FileTrashController::class, 'destroy'])->whereNumber('file')->name('files.trash.destroy');
 });

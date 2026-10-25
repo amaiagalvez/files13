@@ -12,13 +12,22 @@ use Illuminate\Database\Seeder;
 class FilesAccessSeeder extends Seeder
 {
     /** @var list<string> */
-    public const MODULES = ['file_subjects', 'file_types', 'file_statuses', 'file_endings', 'file_locations', 'file_phases'];
+    public const MODULES = ['file_subjects', 'file_types', 'file_statuses', 'file_endings', 'file_locations', 'file_phases', 'files'];
+
+    /**
+     * The permissions over the files a user created or is assigned to, beside the module actions.
+     *
+     * @var list<string>
+     */
+    public const OWN_SLUGS = ['files.view_own', 'files.manage_own'];
 
     /**
      * @var list<array{key: string, label: string, sort: int, parent?: string, icon?: string, route?: string, active?: string, except?: string, permissions?: list<string>}>
      */
     private const MENUS = [
         ['key' => 'files13', 'label' => 'Files', 'sort' => 200],
+        ['key' => 'files', 'parent' => 'files13', 'label' => 'Files', 'sort' => 10, 'icon' => 'folder-open', 'route' => 'files.index', 'active' => 'files.*', 'except' => 'files.mine', 'permissions' => ['files.view', 'files.view_own', 'files.manage_own']],
+        ['key' => 'files-mine', 'parent' => 'files13', 'label' => 'My files', 'sort' => 20, 'icon' => 'user', 'route' => 'files.mine', 'active' => 'files.mine', 'permissions' => ['files.view', 'files.view_own', 'files.manage_own']],
         ['key' => 'file-subjects', 'parent' => 'files13', 'label' => 'Subjects', 'sort' => 110, 'icon' => 'tag', 'route' => 'file-subjects.index', 'active' => 'file-subjects.*', 'permissions' => ['file_subjects.view']],
         ['key' => 'file-types', 'parent' => 'files13', 'label' => 'Types', 'sort' => 120, 'icon' => 'squares-2x2', 'route' => 'file-types.index', 'active' => 'file-types.*', 'permissions' => ['file_types.view']],
         ['key' => 'file-statuses', 'parent' => 'files13', 'label' => 'Statuses', 'sort' => 130, 'icon' => 'signal', 'route' => 'file-statuses.index', 'active' => 'file-statuses.*', 'permissions' => ['file_statuses.view']],
@@ -29,7 +38,7 @@ class FilesAccessSeeder extends Seeder
 
     public function run(): void
     {
-        seedPermissions(self::MODULES, array_map(static fn (string $module): string => $module.'.manage', self::MODULES));
+        seedPermissions(self::MODULES, array_map(static fn (string $module): string => $module.'.manage', self::MODULES), self::OWN_SLUGS);
         seedMenus('files13', self::MENUS);
     }
 }

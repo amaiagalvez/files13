@@ -2,6 +2,10 @@
 
 namespace Files13;
 
+use Files13\Models\File;
+use Files13\Models\FilePhase;
+use Files13\Observers\FileObserver;
+use Files13\Observers\FilePhaseObserver;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class ServiceProvider extends BaseServiceProvider
@@ -27,6 +31,9 @@ class ServiceProvider extends BaseServiceProvider
         ], 'files13-lang');
 
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
+
+        File::observe(FileObserver::class);
+        FilePhase::observe(FilePhaseObserver::class);
     }
 
     public function register(): void
