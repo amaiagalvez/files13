@@ -6,7 +6,9 @@ use Files13\Models\File;
 use Files13\Models\Document;
 use Files13\Models\FilePhase;
 use Illuminate\Routing\Router;
+use Locations13\Models\District;
 use Files13\Models\DocumentTrack;
+use Illuminate\Support\Facades\DB;
 use Files13\Observers\FileObserver;
 use Files13\Observers\FilePhaseObserver;
 use Files13\Http\Middleware\TrustedOnlyOfficeIp;
@@ -46,6 +48,29 @@ class ServiceProvider extends BaseServiceProvider
         FilePhase::observe(FilePhaseObserver::class);
 
         $this->guardDocuments();
+        $this->guardDistricts();
+    }
+
+    /**
+     * A district a file names is not deleted, trashed or not: the files keep their district. Locations
+     * knows nothing of files, so the refusal lives here, with the files that reference the district.
+     */
+    private function guardDistricts(): void
+    {
+        $referenced = static function (District $district): bool {
+            // The row is locked inside its own transaction, as the locations guards do.
+            $locked = DB::transaction(static fn (): District => District::withTrashed()
+                ->whereKey($district->getKey())
+                ->lockForUpdate()
+                ->firstOrFail());
+
+            // Trashed files count too: they still hold the key.
+            return DB::table('FIL_files')->where('district_id', $locked->getKey())->exists();
+        };
+
+        District::deleting(static fn (District $district): bool => ! $referenced($district));
+
+        District::forceDeleting(static fn (District $district): bool => ! $referenced($district));
     }
 
     /**

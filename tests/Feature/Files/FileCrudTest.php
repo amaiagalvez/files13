@@ -9,6 +9,7 @@ use Files13\Tests\TestCase;
 use Files13\Models\FileType;
 use Locations13\Models\District;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\QueryException;
 use Illuminate\Database\Events\QueryExecuted;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
@@ -101,14 +102,13 @@ class FileCrudTest extends TestCase
             ->assertSessionHasErrors('district_id');
     }
 
-    public function test_deleting_the_district_for_good_leaves_the_file_without_one(): void
+    public function test_the_key_refuses_deleting_a_district_a_file_names(): void
     {
         $district = District::factory()->create();
-        $file = File::factory()->create(['district_id' => $district->id]);
+        File::factory()->create(['district_id' => $district->id]);
 
+        $this->expectException(QueryException::class);
         DB::table('LOC_districts')->where('id', $district->id)->delete();
-
-        $this->assertNull($file->refresh()->district_id);
     }
 
     public function test_applicants_need_a_registered_kind_and_appear_once(): void

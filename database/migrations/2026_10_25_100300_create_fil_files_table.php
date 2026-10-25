@@ -22,9 +22,9 @@ return new class extends Migration
             $table->foreignId('subject_id')->nullable()->constrained('FIL_subjects')->restrictOnDelete();
             $table->foreignId('ending_id')->nullable()->constrained('FIL_endings')->restrictOnDelete();
             $table->foreignId('location_id')->nullable()->constrained('FIL_locations')->restrictOnDelete();
-            // The district comes from locations13, which knows nothing of files: deleting it for good
-            // leaves the file without a district instead of being refused.
-            $table->foreignId('district_id')->nullable()->constrained('LOC_districts')->nullOnDelete();
+            // The district comes from locations13, which knows nothing of files: the files guard the
+            // district (see ServiceProvider::guardDistricts()), so the key refuses the delete as well.
+            $table->foreignId('district_id')->nullable()->constrained('LOC_districts')->restrictOnDelete();
 
             addCommonColumns($table);
             addAuditColumns($table);
