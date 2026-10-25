@@ -25,19 +25,20 @@ class FilesAccessSeeder extends Seeder
      * @var list<array{key: string, label: string, sort: int, parent?: string, icon?: string, route?: string, active?: string, except?: string, permissions?: list<string>}>
      */
     private const MENUS = [
-        ['key' => 'files13', 'label' => 'Case files', 'sort' => 200],
+        ['key' => 'files13', 'label' => 'Case files', 'sort' => 300],
+        ['key' => 'files-auxiliary', 'parent' => 'files13', 'label' => 'Auxiliary tables', 'sort' => 900],
         ['key' => 'files-home', 'parent' => 'files13', 'label' => 'Home', 'sort' => 5, 'icon' => 'home', 'route' => 'files-home', 'active' => 'files-home', 'permissions' => ['files.view', 'files.view_own', 'files.manage_own']],
         ['key' => 'files-calendar', 'parent' => 'files13', 'label' => 'Calendar', 'sort' => 40, 'icon' => 'calendar-days', 'route' => 'files-calendar', 'active' => 'files-calendar', 'permissions' => ['files.view', 'files.view_own', 'files.manage_own']],
         ['key' => 'files', 'parent' => 'files13', 'label' => 'Case files', 'sort' => 10, 'icon' => 'folder-open', 'route' => 'files.index', 'active' => 'files.*', 'except' => 'files.mine', 'permissions' => ['files.view', 'files.view_own', 'files.manage_own']],
         ['key' => 'file-phases', 'parent' => 'files13', 'label' => 'Phases of the files', 'sort' => 30, 'icon' => 'clock', 'route' => 'file-phases.index', 'active' => 'file-phases.*', 'permissions' => ['files.view', 'files.view_own', 'files.manage_own']],
         ['key' => 'files-mine', 'parent' => 'files13', 'label' => 'My files', 'sort' => 20, 'icon' => 'user', 'route' => 'files.mine', 'active' => 'files.mine', 'permissions' => ['files.view', 'files.view_own', 'files.manage_own']],
-        ['key' => 'file-subjects', 'parent' => 'files13', 'label' => 'Subjects', 'sort' => 110, 'icon' => 'tag', 'route' => 'file-subjects.index', 'active' => 'file-subjects.*', 'permissions' => ['file_subjects.view']],
-        ['key' => 'file-types', 'parent' => 'files13', 'label' => 'Types', 'sort' => 120, 'icon' => 'squares-2x2', 'route' => 'file-types.index', 'active' => 'file-types.*', 'permissions' => ['file_types.view']],
-        ['key' => 'file-statuses', 'parent' => 'files13', 'label' => 'Statuses', 'sort' => 130, 'icon' => 'signal', 'route' => 'file-statuses.index', 'active' => 'file-statuses.*', 'permissions' => ['file_statuses.view']],
-        ['key' => 'file-endings', 'parent' => 'files13', 'label' => 'Endings', 'sort' => 140, 'icon' => 'flag', 'route' => 'file-endings.index', 'active' => 'file-endings.*', 'permissions' => ['file_endings.view']],
-        ['key' => 'file-locations', 'parent' => 'files13', 'label' => 'Locations', 'sort' => 150, 'icon' => 'calendar-days', 'route' => 'file-locations.index', 'active' => 'file-locations.*', 'permissions' => ['file_locations.view']],
-        ['key' => 'documents', 'parent' => 'files13', 'label' => 'Document templates', 'sort' => 90, 'icon' => 'document-duplicate', 'route' => 'documents.index', 'active' => 'documents.*', 'permissions' => ['file_documents.view']],
-        ['key' => 'phases', 'parent' => 'files13', 'label' => 'Phases', 'sort' => 100, 'icon' => 'queue-list', 'route' => 'phases.index', 'active' => 'phases.*', 'permissions' => ['file_phases.view']],
+        ['key' => 'file-subjects', 'parent' => 'files-auxiliary', 'label' => 'Subjects', 'sort' => 110, 'icon' => 'tag', 'route' => 'file-subjects.index', 'active' => 'file-subjects.*', 'permissions' => ['file_subjects.view']],
+        ['key' => 'file-types', 'parent' => 'files-auxiliary', 'label' => 'Types', 'sort' => 120, 'icon' => 'squares-2x2', 'route' => 'file-types.index', 'active' => 'file-types.*', 'permissions' => ['file_types.view']],
+        ['key' => 'file-statuses', 'parent' => 'files-auxiliary', 'label' => 'Statuses', 'sort' => 130, 'icon' => 'signal', 'route' => 'file-statuses.index', 'active' => 'file-statuses.*', 'permissions' => ['file_statuses.view']],
+        ['key' => 'file-endings', 'parent' => 'files-auxiliary', 'label' => 'Endings', 'sort' => 140, 'icon' => 'flag', 'route' => 'file-endings.index', 'active' => 'file-endings.*', 'permissions' => ['file_endings.view']],
+        ['key' => 'file-locations', 'parent' => 'files-auxiliary', 'label' => 'Locations', 'sort' => 150, 'icon' => 'calendar-days', 'route' => 'file-locations.index', 'active' => 'file-locations.*', 'permissions' => ['file_locations.view']],
+        ['key' => 'documents', 'parent' => 'files-auxiliary', 'label' => 'Document templates', 'sort' => 90, 'icon' => 'document-duplicate', 'route' => 'documents.index', 'active' => 'documents.*', 'permissions' => ['file_documents.view']],
+        ['key' => 'phases', 'parent' => 'files-auxiliary', 'label' => 'Phases', 'sort' => 100, 'icon' => 'queue-list', 'route' => 'phases.index', 'active' => 'phases.*', 'permissions' => ['file_phases.view']],
     ];
 
     public function run(): void
