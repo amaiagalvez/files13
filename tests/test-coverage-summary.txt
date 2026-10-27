@@ -1,0 +1,6 @@
+Executed at: 2026-10-27 19:48:30 CET
+Time: 03:35.955, Memory: 103.00 MB
+Tests: 312, Assertions: 3095, Skipped: 1.
+Classes: 68.22% (88/129)
+Methods: 88.17% (492/558)
+Lines:   94.54% (2249/2379)
