@@ -33,6 +33,7 @@ class Folder extends Model
             return null;
         }
 
-        return self::query()->firstOrCreate(['name' => $name]);
+        // Insert first: a concurrent request that created the same folder ends in a read, not a unique violation.
+        return self::query()->createOrFirst(['name' => $name]);
     }
 }

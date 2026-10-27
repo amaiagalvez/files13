@@ -38,7 +38,7 @@ class VerifyOnlyOfficeToken
         $user = isset($payload['user']) ? $userModel::query()->whereKey($payload['user'])->where('active', true)->first() : null;
 
         abort_unless(
-            $user !== null && $document->active && $this->mayUse($user, $document, (bool) ($payload['readonly'] ?? true)),
+            $user instanceof Authorizable && $document->active && $this->mayUse($user, $document, (bool) ($payload['readonly'] ?? true)),
             403,
         );
 
